@@ -4,13 +4,12 @@
 
 `mui-crud-dashboard` 向け従業員 API の共通仕様（リソース・ポート・パス・応答の包み方）を固定する。
 
-以降のエンドポイント設計は、このドキュメントを前提にする。JSON Server の配列直返しは踏襲しない。
+以降のエンドポイント設計は、このドキュメントを前提にする。JSON Server の配列直返しは踏襲しない。永続化は [02-postgres.md](./02-postgres.md) の PostgreSQL コンテナを使う。テーブル定義は [02-db-tables.md](./02-db-tables.md)。
 
 ## 対象外
 
 - 各 HTTP メソッドの詳細（後続ドキュメント）
 - 認証
-- データベース
 - ページネーション API
 
 ## 参照するフロント設計
@@ -23,10 +22,11 @@
 
 - サーバは `http://localhost:3001` で listen する（JSON Server と同じ）
 - Hello World（[01-hello-world.md](./01-hello-world.md)）も同じプロセスで提供する。従業員 API 導入時にポートを `3000` から `3001` へ合わせる
+- ローカルでは [02-postgres.md](./02-postgres.md) の Docker Compose（`app` + `db`）で起動する
 - リソース名は `employees`
 - Fastify のパスは `/employees` と `/employees/:id`（Vite が `/api` を除去したあとのパス）
-- データはプロセス内メモリで持つ。起動時にシードを載せる
-- `id` はサーバが採番する（既存の最大 `id` + 1）
+- データは PostgreSQL コンテナの `employees` テーブルに持つ。部署は `departments`、役職は `positions` を参照する（[02-db-tables.md](./02-db-tables.md)）
+- `id` はデータベースの IDENTITY が採番する
 - 応答は JSON。`Content-Type` は `application/json`
 - 成功応答は `{ "employees": ... }` で包む。一覧は配列、詳細・作成・更新は従業員オブジェクト 1 件、削除は空オブジェクト
 - リクエストボディは従業員フィールドを直接送る（`employees` では包まない）
@@ -37,11 +37,11 @@
 
 | 項目 | 型 | 必須 | 説明 |
 | --- | --- | --- | --- |
-| id | number（正の整数） | 応答では必須 | サーバ採番。作成リクエストには含めない |
+| id | number（正の整数） | 応答では必須 | DB 採番。作成リクエストには含めない |
 | name | string | 必須 | 氏名 |
 | age | number（正の整数） | 必須 | 年齢 |
 | joinDate | ISO 8601 文字列 | 必須 | 入社日。フロントは `YYYY-MM-DD` を `YYYY-MM-DDT00:00:00.000Z` にして送る |
-| role | `"Market"` / `"Finance"` / `"Development"` | 必須 | 部署。画面上の表示名は Department |
+| role | `"Market"` / `"Finance"` / `"Development"` | 必須 | 部署。`departments.name`。画面上の表示名は Department |
 | isFullTime | boolean | 必須 | 正社員かどうか |
 | birthDate | ISO 8601 文字列 | 任意 | 生年月日。一覧画面では出さないが、詳細・更新で使う |
 
@@ -49,7 +49,7 @@
 
 ## シード
 
-`mui-crud-dashboard/src/data/db.json` と同じ 3 件を起動時に載せる。
+`mui-crud-dashboard/src/data/db.json` と同じ 3 件を、PostgreSQL 初回起動時に載せる。
 
 | id | name | age | joinDate | role | isFullTime | birthDate |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -73,7 +73,7 @@
 
 - ポート `3001` で起動できる
 - 従業員オブジェクトの項目と型がフロントの `Employee` と一致する
-- 起動直後の一覧がシード 3 件である
+- 起動直後の一覧がシード 3 件である（PostgreSQL に入っている）
 - 成功応答を `{ "employees": ... }` で包む（配列直返しや `{ "employee": ... }` にはしない）
 - `npm run test` が成功する
 
