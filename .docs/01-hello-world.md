@@ -34,8 +34,10 @@ Fastify サーバを起動し、Hello World を返すエンドポイントを用
 
 ## 起動
 
-1. `npm run dev` で開発サーバを起動する
+1. `docker compose up --build` で Fastify コンテナを起動する
 2. `GET http://localhost:3000/` で Hello World を取得する
+
+ホストで試すときだけ `npm run dev` を使ってよい。UT はホストで `npm run test` する。
 
 ## 受け入れ条件
 

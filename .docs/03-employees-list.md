@@ -57,7 +57,7 @@
 ## 受け入れ条件
 
 - `GET /employees` が 200 で `{ "employees": [...] }` を返す
-- 起動直後の `employees` はシード 3 件である
+- 起動直後の `employees` はシード 3 件である（PostgreSQL）
 - 配列をトップレベルで返さない
 - クエリパラメータがなくても全件を返す
 - UT は listen せず、Fastify の `inject` で通る

@@ -27,7 +27,7 @@
 | 成功 | 201 |
 | 成功ボディ | `{ "employees": 採番済みの従業員オブジェクト }` |
 
-フロントの `toEmployeePayload()` が送る JSON を受け取る。`id` はサーバが採番する。
+フロントの `toEmployeePayload()` が送る JSON を受け取る。`id` は PostgreSQL の IDENTITY が採番する。
 
 ### リクエスト
 
@@ -70,7 +70,7 @@
 }
 ```
 
-`id` は既存の最大値 + 1。シード最大が 3 なら次は 4。
+`id` はデータベースが採番する。シード最大が 3 なら次は 4。
 
 `name` は保存前に trim する。
 
@@ -87,7 +87,7 @@
 
 - 妥当な POST で 201 と `{ "employees": { ... } }` を返す
 - 作成後の `GET /employees` の `employees` 配列に追加行が含まれる
-- `id` はサーバが採番する
+- `id` はデータベースが採番する
 - 不正なボディは追加せず 400 を返す
 - UT は listen せず、Fastify の `inject` で通る
 - `npm run test` が成功する
