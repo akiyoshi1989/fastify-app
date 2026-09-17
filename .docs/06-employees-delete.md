@@ -32,10 +32,10 @@
 | Fastify パス | `/employees/:id` |
 | フロントパス | `/api/employees/:id` |
 | 成功 | 200 |
-| 成功ボディ | `{}` |
+| 成功ボディ | `{ "employees": {} }` |
 | 未存在 | 404 |
 
-フロントの `deleteEmployee()` は成功時にボディを読まない。JSON Server に合わせ、200 と空オブジェクトを返す。
+フロントの `deleteEmployee()` は成功時にボディを読まない。成功時も他と同様に `employees` キーで包み、値は空オブジェクトにする。
 
 ### 失敗
 
@@ -47,7 +47,7 @@
 
 ## 受け入れ条件
 
-- 存在する `id` の DELETE で 200 を返す
+- 存在する `id` の DELETE で 200 と `{ "employees": {} }` を返す
 - 削除後の `GET /employees` からその行が消える
 - 存在しない `id` で 404 を返し、他の行は変えない
 - UT は listen せず、Fastify の `inject` で通る

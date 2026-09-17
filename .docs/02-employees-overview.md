@@ -1,10 +1,10 @@
-# 従業員リソースと JSON Server 互換
+# 従業員リソース
 
 ## 目的
 
-`mui-crud-dashboard` が JSON Server に期待している契約を、Fastify 側の共通仕様として固定する。
+`mui-crud-dashboard` 向け従業員 API の共通仕様（リソース・ポート・パス・応答の包み方）を固定する。
 
-以降のエンドポイント設計は、このドキュメントのリソース定義・ポート・パスを前提にする。
+以降のエンドポイント設計は、このドキュメントを前提にする。JSON Server の配列直返しは踏襲しない。
 
 ## 対象外
 
@@ -28,7 +28,8 @@
 - データはプロセス内メモリで持つ。起動時にシードを載せる
 - `id` はサーバが採番する（既存の最大 `id` + 1）
 - 応答は JSON。`Content-Type` は `application/json`
-- 一覧・詳細・作成・更新の成功応答は、ラッパーオブジェクトではなく従業員そのもの（またはその配列）
+- 成功応答は `{ "employees": ... }` で包む。一覧は配列、詳細・作成・更新は従業員オブジェクト 1 件、削除は空オブジェクト
+- リクエストボディは従業員フィールドを直接送る（`employees` では包まない）
 
 ## 従業員オブジェクト
 
@@ -66,14 +67,14 @@
 | DELETE | `/employees/:id` | `deleteEmployee()` | [06-employees-delete.md](./06-employees-delete.md) |
 | PUT | `/employees/:id` | `updateEmployee()` | [07-employees-update.md](./07-employees-update.md) |
 
-フロントは `response.ok` だけを見る。成功以外は [08-api-error.md](./08-api-error.md) のステータスを返す。
+フロントは成功時に `employees` を取り出す。失敗は `response.ok` が偽なら [08-api-error.md](./08-api-error.md) のステータスとして扱う。
 
 ## 受け入れ条件
 
 - ポート `3001` で起動できる
 - 従業員オブジェクトの項目と型がフロントの `Employee` と一致する
 - 起動直後の一覧がシード 3 件である
-- 成功応答を `{ employees: ... }` や `{ employee: ... }` で包まない
+- 成功応答を `{ "employees": ... }` で包む（配列直返しや `{ "employee": ... }` にはしない）
 - `npm run test` が成功する
 
 ## 次の段階

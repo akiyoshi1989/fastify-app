@@ -26,27 +26,29 @@
 | Fastify パス | `/employees` |
 | フロントパス | `/api/employees` |
 | 成功 | 200 |
-| 成功ボディ | 従業員オブジェクトの配列 |
+| 成功ボディ | `{ "employees": 従業員オブジェクトの配列 }` |
 
 ### 成功例
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Edward Perry",
-    "age": 25,
-    "joinDate": "2025-07-16T00:00:00.000Z",
-    "role": "Finance",
-    "isFullTime": true,
-    "birthDate": "2000-03-12T00:00:00.000Z"
-  }
-]
+{
+  "employees": [
+    {
+      "id": 1,
+      "name": "Edward Perry",
+      "age": 25,
+      "joinDate": "2025-07-16T00:00:00.000Z",
+      "role": "Finance",
+      "isFullTime": true,
+      "birthDate": "2000-03-12T00:00:00.000Z"
+    }
+  ]
+}
 ```
 
 `birthDate` は一覧画面では使わないが、シードに含まれるため返してよい。フロントは未知フィールドを無視する。
 
-空のときは `[]` を返す。
+空のときは `{ "employees": [] }` を返す。フロントは `employees` 配列を取り出して使う。
 
 ### 失敗
 
@@ -54,9 +56,9 @@
 
 ## 受け入れ条件
 
-- `GET /employees` が 200 で従業員配列を返す
-- 起動直後はシード 3 件である
-- 配列をオブジェクトで包まない
+- `GET /employees` が 200 で `{ "employees": [...] }` を返す
+- 起動直後の `employees` はシード 3 件である
+- 配列をトップレベルで返さない
 - クエリパラメータがなくても全件を返す
 - UT は listen せず、Fastify の `inject` で通る
 - `npm run test` が成功する

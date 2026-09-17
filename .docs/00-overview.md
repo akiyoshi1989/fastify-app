@@ -4,7 +4,6 @@
 
 [mui-crud-dashboard](../../mui-crud-dashboard) の JSON Server を置き換える HTTP API を、Fastify で提供する。
 
-フロントの画面設計は `mui-crud-dashboard/.docs` を正とする。このディレクトリは、その画面が呼ぶ API の契約だけを書く。
 
 ## フロントとの対応
 
@@ -15,7 +14,7 @@ Vite は `/api` を `http://localhost:3001` へプロキシし、先頭の `/api
 | `/api/employees` | `/employees` |
 | `/api/employees/:id` | `/employees/:id` |
 
-フロントは応答ボディを `{ employees: ... }` で包まず、配列または従業員オブジェクトそのものを期待する。
+成功応答は従業員データを `employees` キーで包む。一覧は配列、1 件はオブジェクトを入れる。エラー応答は包まない（[08-api-error.md](./08-api-error.md)）。
 
 ## 進め方
 
@@ -24,7 +23,7 @@ Vite は `/api` を `http://localhost:3001` へプロキシし、先頭の `/api
 | 段階 | 内容 | フロント設計 | この設計書 |
 | --- | --- | --- | --- |
 | 1 | Hello World エンドポイント | — | [01-hello-world.md](./01-hello-world.md) |
-| 2 | 従業員リソースと JSON Server 互換 | [06-json-server.md](../../mui-crud-dashboard/.docs/06-json-server.md) | [02-employees-overview.md](./02-employees-overview.md) |
+| 2 | 従業員リソース | [06-json-server.md](../../mui-crud-dashboard/.docs/06-json-server.md) | [02-employees-overview.md](./02-employees-overview.md) |
 | 3 | 従業員一覧 GET | [04-employee-list.md](../../mui-crud-dashboard/.docs/04-employee-list.md) | [03-employees-list.md](./03-employees-list.md) |
 | 4 | 従業員詳細 GET | [12-employee-detail.md](../../mui-crud-dashboard/.docs/12-employee-detail.md) | [04-employees-detail.md](./04-employees-detail.md) |
 | 5 | 従業員追加 POST | [05-employee-create.md](../../mui-crud-dashboard/.docs/05-employee-create.md) | [05-employees-create.md](./05-employees-create.md) |

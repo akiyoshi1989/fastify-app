@@ -25,7 +25,7 @@
 | Fastify パス | `/employees` |
 | フロントパス | `/api/employees` |
 | 成功 | 201 |
-| 成功ボディ | 採番済みの従業員オブジェクト |
+| 成功ボディ | `{ "employees": 採番済みの従業員オブジェクト }` |
 
 フロントの `toEmployeePayload()` が送る JSON を受け取る。`id` はサーバが採番する。
 
@@ -59,12 +59,14 @@
 
 ```json
 {
-  "id": 4,
-  "name": "Ada Lovelace",
-  "age": 36,
-  "joinDate": "2026-01-15T00:00:00.000Z",
-  "role": "Development",
-  "isFullTime": true
+  "employees": {
+    "id": 4,
+    "name": "Ada Lovelace",
+    "age": 36,
+    "joinDate": "2026-01-15T00:00:00.000Z",
+    "role": "Development",
+    "isFullTime": true
+  }
 }
 ```
 
@@ -83,8 +85,8 @@
 
 ## 受け入れ条件
 
-- 妥当な POST で 201 と採番済み従業員を返す
-- 作成後の `GET /employees` に追加行が含まれる
+- 妥当な POST で 201 と `{ "employees": { ... } }` を返す
+- 作成後の `GET /employees` の `employees` 配列に追加行が含まれる
 - `id` はサーバが採番する
 - 不正なボディは追加せず 400 を返す
 - UT は listen せず、Fastify の `inject` で通る

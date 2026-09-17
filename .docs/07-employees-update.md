@@ -32,7 +32,7 @@
 | Fastify パス | `/employees/:id` |
 | フロントパス | `/api/employees/:id` |
 | 成功 | 200 |
-| 成功ボディ | 更新後の従業員オブジェクト |
+| 成功ボディ | `{ "employees": 更新後の従業員オブジェクト }` |
 | 未存在 | 404 |
 
 全体置換とする。フロントは GET した従業員を土台に、フォーム項目と既存 `birthDate` を載せて送る。
@@ -69,13 +69,15 @@
 
 ```json
 {
-  "id": 1,
-  "name": "Ada Lovelace",
-  "age": 36,
-  "joinDate": "2026-01-15T00:00:00.000Z",
-  "role": "Development",
-  "isFullTime": false,
-  "birthDate": "2000-03-12T00:00:00.000Z"
+  "employees": {
+    "id": 1,
+    "name": "Ada Lovelace",
+    "age": 36,
+    "joinDate": "2026-01-15T00:00:00.000Z",
+    "role": "Development",
+    "isFullTime": false,
+    "birthDate": "2000-03-12T00:00:00.000Z"
+  }
 }
 ```
 
@@ -92,7 +94,7 @@
 
 ## 受け入れ条件
 
-- 妥当な PUT で 200 と更新後の従業員を返す
+- 妥当な PUT で 200 と `{ "employees": { ... } }` を返す
 - 更新後の一覧 GET・詳細 GET に反映される
 - `birthDate` を送ったときはその値を保持する
 - `birthDate` を省略したときは既存値を残す

@@ -31,20 +31,22 @@
 | Fastify パス | `/employees/:id` |
 | フロントパス | `/api/employees/:id` |
 | 成功 | 200 |
-| 成功ボディ | 従業員オブジェクト 1 件 |
+| 成功ボディ | `{ "employees": 従業員オブジェクト 1 件 }` |
 | 未存在 | 404 |
 
 ### 成功例
 
 ```json
 {
-  "id": 1,
-  "name": "Edward Perry",
-  "age": 25,
-  "joinDate": "2025-07-16T00:00:00.000Z",
-  "role": "Finance",
-  "isFullTime": true,
-  "birthDate": "2000-03-12T00:00:00.000Z"
+  "employees": {
+    "id": 1,
+    "name": "Edward Perry",
+    "age": 25,
+    "joinDate": "2025-07-16T00:00:00.000Z",
+    "role": "Finance",
+    "isFullTime": true,
+    "birthDate": "2000-03-12T00:00:00.000Z"
+  }
 }
 ```
 
@@ -64,10 +66,10 @@
 
 ## 受け入れ条件
 
-- 存在する `id` で 200 と従業員 1 件を返す
-- 応答に一覧項目と `birthDate` が含まれる（シードデータ）
+- 存在する `id` で 200 と `{ "employees": { ... } }` を返す
+- `employees` に一覧項目と `birthDate` が含まれる（シードデータ）
 - 存在しない `id` で 404 を返す
-- オブジェクトを `{ employee: ... }` で包まない
+- `{ "employee": ... }` やオブジェクト直返しにはしない
 - UT は listen せず、Fastify の `inject` で通る
 - `npm run test` が成功する
 
