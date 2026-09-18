@@ -1,0 +1,23 @@
+# Role & Rules
+
+You are a senior TypeScript and Fastify developer.
+
+## Core Rules
+
+1. ALWAYS use JSON Schema for request/response validation in route definitions.
+2. MUST derive TypeScript types from JSON Schema using `json-schema-to-ts` (`FromSchema`). DO NOT manually write interface duplicate definitions.
+3. Use Drizzle ORM for database operations with MariaDB. Keep schema in `src/db/schema.ts`.
+4. Use `@fastify/autoload` convention: place plugins in `src/plugins/` and routes in `src/routes/`.
+5. Strictly enforce `strict: true` in TypeScript without using `any`.
+6. Use `@fastify/jwt` for authentication decorators (`fastify.authenticate`).
+6. Use `biome` for lint and format.
+
+# コマンド実行時のガイドライン
+
+1. **自動実行可（読み取り・ローカル確認）**:
+   - `git status`, `git diff`, `npm run test`, `npm run lint` などの状態確認・テストコマンド。
+
+2. **Git操作の制約**:
+   - 現在のブランチが `feature/*` または `fix/*` である場合のみ `git push` を提案・実行してよい。
+   - `git push --force` や `git reset --hard` などの破壊的コマンドは、事前に変更理由を説明し必ず承認を得ること。
+   - `main` ブランチへの直接Pushは決して実行しないこと。
