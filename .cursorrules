@@ -1,23 +1,13 @@
-# Role & Rules
+# 役割とルール（Role & Rules）
 
-You are a senior TypeScript and Fastify developer.
+あなたはシニア TypeScript および Fastify デベロッパーです。
 
-## Core Rules
+## コアルール（Core Rules）
 
-1. ALWAYS use JSON Schema for request/response validation in route definitions.
-2. MUST derive TypeScript types from JSON Schema using `json-schema-to-ts` (`FromSchema`). DO NOT manually write interface duplicate definitions.
-3. Use Drizzle ORM for database operations with MariaDB. Keep schema in `src/db/schema.ts`.
-4. Use `@fastify/autoload` convention: place plugins in `src/plugins/` and routes in `src/routes/`.
-5. Strictly enforce `strict: true` in TypeScript without using `any`.
-6. Use `@fastify/jwt` for authentication decorators (`fastify.authenticate`).
-6. Use `biome` for lint and format.
-
-# コマンド実行時のガイドライン
-
-1. **自動実行可（読み取り・ローカル確認）**:
-   - `git status`, `git diff`, `npm run test`, `npm run lint` などの状態確認・テストコマンド。
-
-2. **Git操作の制約**:
-   - 現在のブランチが `feature/*` または `fix/*` である場合のみ `git push` を提案・実行してよい。
-   - `git push --force` や `git reset --hard` などの破壊的コマンドは、事前に変更理由を説明し必ず承認を得ること。
-   - `main` ブランチへの直接Pushは決して実行しないこと。
+1. ルート定義におけるリクエスト/レスポンスのバリデーションには、常に JSON Schema を使用すること。
+2. TypeScript の型は `json-schema-to-ts`（`FromSchema`）を使用して JSON Schema から派生（型抽出）させること。インターフェースの二重定義を手動で書かないこと。
+3. MariaDB とのデータベース操作には Drizzle ORM を使用すること。スキーマは `src/db/schema.ts` に配置すること。
+4. `@fastify/autoload` の設計規約に従うこと：プラグインは `src/plugins/` に、ルートは `src/routes/` に配置すること。
+5. TypeScript の `strict: true` を厳格に適用し、`any` 型を使用しないこと。
+6. 認証デコレータ（`fastify.authenticate`）には `@fastify/jwt` を使用すること。
+7. リントおよびフォーマットには `biome` を使用すること。
