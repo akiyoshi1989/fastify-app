@@ -4,4 +4,18 @@ alwaysApply: true
 
 # ターミナル実行ルール
 
-- 状態確認時は `git status -sb` や `git log -3 --oneline` などの読み取り専用コマンドを使用し、必要以上に複数のコマンドを `&&` で連結しないこと。
+- シェルコマンドは **1 回の呼び出しにつき 1 コマンド**とする。
+- **`&&` / `||` / `;` で複数コマンドを連結しない。**
+- 独立した確認は、複数の Shell 呼び出しに分けて並列実行してよい。
+- 状態確認は読み取り専用コマンドを使う（例: `git status -sb`、`git log -3 --oneline`）。
+
+誤:
+
+```sh
+git status -sb && git branch --show-current
+```
+
+正:
+
+- 呼び出し 1: `git status -sb`
+- 呼び出し 2: `git branch --show-current`

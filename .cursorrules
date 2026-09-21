@@ -19,6 +19,5 @@
 
 ## ターミナル実行ガイドライン
 
-- 状態確認時（git status や git branch など）は、`&&` でコマンドを連結せず、1コマンドずつ単体で分けて実行すること。
-  - 誤: `git status -sb && git branch --show-current`
-  - 正: `git status -sb` を実行後、必要に応じて `git branch --show-current` を実行
+- シェルコマンドは **1 回につき 1 コマンド**。`&&` / `||` / `;` で連結しない。
+- 詳細は `.cursor/rules/command-allow.mdc` に従う。
