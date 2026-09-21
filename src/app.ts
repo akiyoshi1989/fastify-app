@@ -8,8 +8,8 @@ export type BuildAppOptions = {
 export function buildApp(options: BuildAppOptions): FastifyInstance {
   const app = Fastify();
 
-  app.get("/", async () => {
-    return { message: "Hello World" };
+  app.get("/health-check", async () => {
+    return { message: "success" };
   });
 
   app.get("/employees", async () => {
