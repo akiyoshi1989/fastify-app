@@ -12,7 +12,6 @@ export function createPgEmployeesRepository(
       const result = await pool.query<{
         id: number;
         name: string;
-        age: number;
         join_date: string;
         role: "Market" | "Finance" | "Development";
         is_full_time: boolean;
@@ -21,7 +20,6 @@ export function createPgEmployeesRepository(
         SELECT
           e.id,
           e.name,
-          e.age,
           e.join_date,
           d.name AS role,
           e.is_full_time,
@@ -31,7 +29,8 @@ export function createPgEmployeesRepository(
         ORDER BY e.id
       `);
 
-      return result.rows.map(mapEmployeeRow);
+      const now = new Date();
+      return result.rows.map((row) => mapEmployeeRow(row, now));
     },
   };
 }

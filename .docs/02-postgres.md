@@ -10,6 +10,7 @@
 - 本番向けのバックアップやレプリケーション
 - 本番用イメージの最適化
 - 接続クライアント（`pg` や Prisma など）の導入。実装時に許可を得て追加する
+- 呼び出し側 UI・クライアント実装
 
 ## 構成
 
@@ -17,7 +18,7 @@ Compose サービスは `app` と `db` の 2 つ。同一ネットワーク内�
 
 | サービス | 役割 | ホストから見えるポート |
 | --- | --- | --- |
-| app | Fastify（`tsx watch`） | `3000`（Hello World）。従業員 API 導入後は `3001` |
+| app | Fastify（`tsx watch`） | `3000` |
 | db | PostgreSQL | `5432` |
 
 - `app` はソースをボリュームマウントし、保存するとコンテナ内で再起動する
@@ -49,7 +50,7 @@ Compose サービスは `app` と `db` の 2 つ。同一ネットワーク内�
 | ビルド | リポジトリ直下の `Dockerfile`（Node.js 24） |
 | コンテナ名 | `fastify-app` |
 | コマンド | `npm run dev` |
-| ポート | Hello World は `3000:3000` |
+| ポート | `3000:3000` |
 | マウント | `./src` → `/app/src` |
 
 コンテナ内の `DATABASE_URL` は `postgresql://user:pw@db:5432/fastify_app`。
@@ -66,7 +67,7 @@ Compose サービスは `app` と `db` の 2 つ。同一ネットワーク内�
 docker compose up --build
 ```
 
-- Hello World は `GET http://localhost:3000/`
+- health check は `GET http://localhost:3000/health-check`
 - バックグラウンドにするときは `docker compose up --build -d`
 - 止めるときは `docker compose down`
 - スキーマをやり直すときは `docker compose down -v` してから上げ直す（ボリュームが残ると init SQL は再実行されない）
@@ -74,7 +75,7 @@ docker compose up --build
 ## 受け入れ条件
 
 - `docker compose up --build` で `app` と `db` が起動する
-- ホストの `GET http://localhost:3000/` が Hello World を返す
+- ホストの `GET http://localhost:3000/health-check` が `{ "message": "success" }` を返す
 - Fastify は Compose ネットワーク経由で `db` に届く `DATABASE_URL` を持つ
 - 従業員の読み書き先はメモリではなく `employees` テーブルである
 - 初回起動後の `employees` / `departments` / `positions` は各シード 3 件である

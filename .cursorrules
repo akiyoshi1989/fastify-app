@@ -11,3 +11,14 @@
 5. TypeScript の `strict: true` を厳格に適用し、`any` 型を使用しないこと。
 6. 認証デコレータ（`fastify.authenticate`）には `@fastify/jwt` を使用すること。
 7. リントおよびフォーマットには `biome` を使用すること。
+
+## 設計書の方針
+
+- `.docs` は **この API の仕様のみ**を書く。呼び出し側（フロント）の画面・実装・ルーティングには触れない。
+- 記述は **HTTP 契約 / DB / アプリ内** の 3 層を明示する（詳細は `.cursor/rules/docs-api-independence.mdc` と `.docs/00-overview.md`）。
+
+## ターミナル実行ガイドライン
+
+- 状態確認時（git status や git branch など）は、`&&` でコマンドを連結せず、1コマンドずつ単体で分けて実行すること。
+  - 誤: `git status -sb && git branch --show-current`
+  - 正: `git status -sb` を実行後、必要に応じて `git branch --show-current` を実行

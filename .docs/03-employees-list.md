@@ -2,33 +2,27 @@
 
 ## 目的
 
-フロントの従業員テーブルが呼ぶ `GET /api/employees` に相当する API を提供する。
+従業員一覧を返す `GET /employees` を提供する。
 
 ## 対象外
 
 - クエリによる検索・フィルタ・ソート
 - ページネーション
 - 認証
+- 呼び出し側 UI・クライアント実装
 
-検索はフロントが取得後に `filterEmployees()` で行う。API は全件を返す。
-
-## 参照するフロント設計
-
-- [04-employee-list.md](../../mui-crud-dashboard/.docs/04-employee-list.md)
-- [06-json-server.md](../../mui-crud-dashboard/.docs/06-json-server.md)
-- [07-tanstack-query.md](../../mui-crud-dashboard/.docs/07-tanstack-query.md)
+API は全件を返す。
 
 ## エンドポイント
 
 | 項目 | 値 |
 | --- | --- |
 | メソッド | GET |
-| Fastify パス | `/employees` |
-| フロントパス | `/api/employees` |
+| パス | `/employees` |
 | 成功 | 200 |
-| 成功ボディ | `{ "employees": 従業員オブジェクトの配列 }` |
+| 成功ボディ | `{ "employees": 従業員オブジェクトの配列 }`（オブジェクト形は [02-employees-overview.md](./02-employees-overview.md)） |
 
-### 成功例
+### 成功レスポンス例（JSON）
 
 ```json
 {
@@ -46,13 +40,13 @@
 }
 ```
 
-`birthDate` は一覧画面では使わないが、シードに含まれるため返してよい。フロントは未知フィールドを無視する。
+- DB シードに `birth_date` がある行は、HTTP でも `birthDate` を含めてよい。
+- 応答の `age` は **DB 列ではなくアプリ内で算出**する（[02-employees-overview.md](./02-employees-overview.md)）。
+- 空のときは `{ "employees": [] }` を返す。
 
-空のときは `{ "employees": [] }` を返す。フロントは `employees` 配列を取り出して使う。
+### 失敗レスポンス
 
-### 失敗
-
-サーバエラーは [08-api-error.md](./08-api-error.md) に従い、2xx 以外を返す。フロントは `load-employees` として扱う。
+サーバエラーは [08-api-error.md](./08-api-error.md) に従い、2xx 以外を返す。
 
 ## 受け入れ条件
 
