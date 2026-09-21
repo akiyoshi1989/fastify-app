@@ -18,7 +18,7 @@
 
 1 機能ずつ実装し、機能ごとに UT を追加する。実装は `.docs` 配下の設計書に従う。ローカル開発は Docker Compose で行う。
 
-| 段階 | 内容 | フロント設計 | この設計書 |
+| 段階 | 内容 | 層 | この設計書 |
 | --- | --- | --- | --- |
 | 1 | health check エンドポイント | HTTP | [01-health-check.md](./01-health-check.md) |
 | 2 | Docker ローカル開発（app + PostgreSQL） | 実行環境 | [02-postgres.md](./02-postgres.md) |
