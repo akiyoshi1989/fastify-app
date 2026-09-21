@@ -1,8 +1,8 @@
-# Hello World エンドポイント
+# health check エンドポイント
 
 ## 目的
 
-Fastify サーバを起動し、Hello World を返すエンドポイントを用意する。
+Fastify サーバを起動し、疎通確認用のエンドポイントを用意する。
 
 ## 対象外
 
@@ -15,7 +15,7 @@ Fastify サーバを起動し、Hello World を返すエンドポイントを用
 
 | 用途 | 採用 |
 | --- | --- |
-| HTTP サーバ | Fastify |
+| サーバ | Fastify |
 | 言語 | TypeScript |
 | 実行 | tsx |
 | 単体テスト | Node.js 組み込みの `node:test` |
@@ -28,19 +28,19 @@ Fastify サーバを起動し、Hello World を返すエンドポイントを用
 
 ## エンドポイント
 
-| メソッド | パス | ステータス | レスポンス |
+| メソッド | パス | ステータス | レスポンス JSON |
 | --- | --- | --- | --- |
-| GET | `/` | 200 | `{ "message": "Hello World" }` |
+| GET | `/health-check` | 200 | `{ "message": "success" }` |
 
 ## 起動
 
 1. `docker compose up --build` で Fastify コンテナを起動する
-2. `GET http://localhost:3000/` で Hello World を取得する
+2. `GET http://localhost:3000/health-check` で疎通を確認する
 
 ホストで試すときだけ `npm run dev` を使ってよい。UT はホストで `npm run test` する。
 
 ## 受け入れ条件
 
-- `GET /` が `{ "message": "Hello World" }` を返す
+- `GET /health-check` が `{ "message": "success" }` を返す
 - UT はサーバを listen せず、Fastify の `inject` で通る
 - `npm run test` が成功する

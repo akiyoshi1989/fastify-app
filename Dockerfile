@@ -8,6 +8,6 @@ RUN npm ci
 COPY tsconfig.json ./
 COPY src ./src
 
-EXPOSE 3001
+EXPOSE 3000
 
 CMD ["npm", "run", "dev"]
