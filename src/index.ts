@@ -1,5 +1,5 @@
 import { buildApp } from "./app";
-import { createPool } from "./db";
+import { createDb } from "./db";
 import { createPgEmployeesRepository } from "./employees-repository";
 
 const databaseUrl = process.env.DATABASE_URL;
@@ -8,9 +8,9 @@ if (!databaseUrl) {
   process.exit(1);
 }
 
-const pool = createPool(databaseUrl);
+const { db, pool } = createDb(databaseUrl);
 const app = buildApp({
-  employeesRepository: createPgEmployeesRepository(pool),
+  employeesRepository: createPgEmployeesRepository(db),
 });
 
 app.addHook("onClose", async () => {

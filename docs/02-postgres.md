@@ -9,7 +9,7 @@
 - 認証
 - 本番向けのバックアップやレプリケーション
 - 本番用イメージの最適化
-- 接続クライアント（`pg` や Prisma など）の導入。実装時に許可を得て追加する
+- 接続クライアント（`pg` や Prisma など）の追加導入。クエリは Drizzle ORM を使う（スキーマは `src/db/schema.ts`）
 - 呼び出し側 UI・クライアント実装
 
 ## 構成
@@ -24,6 +24,7 @@ Compose サービスは `app` と `db` の 2 つ。同一ネットワーク内�
 - `app` はソースをボリュームマウントし、保存するとコンテナ内で再起動する
 - `app` から DB への接続先ホストはサービス名 `db`（`localhost` ではない）
 - 接続情報は環境変数 `DATABASE_URL` で渡す
+- アプリのクエリは Drizzle ORM（`src/db/schema.ts`）で行う。DDL / シードの正は引き続き `db/init.sql`
 - スキーマとシードは `db` の初回起動時に流す（`docker-entrypoint-initdb.d`）。テーブル定義は [02-db-tables.md](./02-db-tables.md)
 - UT はコンテナを起動せず、ホストで `npm run test` する
 
