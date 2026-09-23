@@ -55,14 +55,9 @@ DB シードの 3 件は `birth_date` を持つ。応答の `age` は **アプ�
 | 該当従業員がいない | 404 |
 | サーバエラー | 500 |
 
-## 受け入れ条件
+## テスト仕様
 
-- 存在する `id` で 200 と `{ "employees": { ... } }` を返す
-- `employees` に一覧項目と `birthDate` が含まれる（シードデータ）
-- 存在しない `id` で 404 を返す
-- `{ "employee": ... }` やオブジェクト直返しにはしない
-- UT は listen せず、Fastify の `inject` で通る
-- `npm run test` が成功する
+[tests/04-employees-detail.md](./tests/04-employees-detail.md)
 
 ## 次の段階
 

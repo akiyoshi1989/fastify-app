@@ -72,15 +72,9 @@ docker compose up --build
 - 止めるときは `docker compose down`
 - スキーマをやり直すときは `docker compose down -v` してから上げ直す（ボリュームが残ると init SQL は再実行されない）
 
-## 受け入れ条件
+## テスト仕様
 
-- `docker compose up --build` で `app` と `db` が起動する
-- ホストの `GET http://localhost:3000/health-check` が `{ "message": "success" }` を返す
-- Fastify は Compose ネットワーク経由で `db` に届く `DATABASE_URL` を持つ
-- 従業員の読み書き先はメモリではなく `employees` テーブルである
-- 初回起動後の `employees` / `departments` / `positions` は各シード 3 件である
-- UT はコンテナなしで通る
-- `npm run test` が成功する
+[tests/02-postgres.md](./tests/02-postgres.md)
 
 ## 次の段階
 

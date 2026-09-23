@@ -48,14 +48,9 @@ API は全件を返す。
 
 サーバエラーは [08-api-error.md](./08-api-error.md) に従い、2xx 以外を返す。
 
-## 受け入れ条件
+## テスト仕様
 
-- `GET /employees` が 200 で `{ "employees": [...] }` を返す
-- 起動直後の `employees` はシード 3 件である（PostgreSQL）
-- 配列をトップレベルで返さない
-- クエリパラメータがなくても全件を返す
-- UT は listen せず、Fastify の `inject` で通る
-- `npm run test` が成功する
+[tests/03-employees-list.md](./tests/03-employees-list.md)
 
 ## 次の段階
 

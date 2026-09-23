@@ -37,13 +37,9 @@
 | 該当従業員がいない | 404 |
 | サーバエラー | 500 |
 
-## 受け入れ条件
+## テスト仕様
 
-- 存在する `id` の DELETE で 200 と `{ "employees": {} }` を返す
-- 削除後の `GET /employees` からその行が消える
-- 存在しない `id` で 404 を返し、他の行は変えない
-- UT は listen せず、Fastify の `inject` で通る
-- `npm run test` が成功する
+[tests/06-employees-delete.md](./tests/06-employees-delete.md)
 
 ## 次の段階
 

@@ -73,14 +73,9 @@
 | JSON が読めない / 必須欠落 / 型不正 | 400 |
 | サーバエラー | 500 |
 
-## 受け入れ条件
+## テスト仕様
 
-- 妥当な POST で 201 と `{ "employees": { ... } }` を返す
-- 作成後の `GET /employees` の `employees` 配列に追加行が含まれる
-- `id` はデータベースが採番する
-- 不正なボディは追加せず 400 を返す
-- UT は listen せず、Fastify の `inject` で通る
-- `npm run test` が成功する
+[tests/05-employees-create.md](./tests/05-employees-create.md)
 
 ## 次の段階
 

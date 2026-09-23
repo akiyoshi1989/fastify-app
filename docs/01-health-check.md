@@ -39,8 +39,6 @@ Fastify サーバを起動し、疎通確認用のエンドポイントを用意
 
 ホストで試すときだけ `npm run dev` を使ってよい。UT はホストで `npm run test` する。
 
-## 受け入れ条件
+## テスト仕様
 
-- `GET /health-check` が `{ "message": "success" }` を返す
-- UT はサーバを listen せず、Fastify の `inject` で通る
-- `npm run test` が成功する
+[tests/01-health-check.md](./tests/01-health-check.md)

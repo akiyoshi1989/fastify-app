@@ -71,13 +71,9 @@ DB シードの正は [02-db-tables.md](./02-db-tables.md) と `db/init.sql`。�
 
 失敗時のステータスとボディは [08-api-error.md](./08-api-error.md) に従う。
 
-## 受け入れ条件
+## テスト仕様
 
-- ポート `3000` で起動できる
-- HTTP の従業員オブジェクトの項目と型がこの文書の表と一致する
-- 起動直後の一覧が DB シード 3 件分である（PostgreSQL）
-- 成功応答を `{ "employees": ... }` で包む（配列直返しや `{ "employee": ... }` にはしない）
-- `npm run test` が成功する
+[tests/02-employees-overview.md](./tests/02-employees-overview.md)
 
 ## 次の段階
 
