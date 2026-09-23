@@ -1,6 +1,24 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { ageFromBirthDate, mapEmployeeRow, toApiDate } from "./employees";
+import {
+  ageFromBirthDate,
+  mapEmployeeRow,
+  parseEmployeeId,
+  toApiDate,
+} from "./employees";
+
+test("parseEmployeeId は正の整数だけ通す", () => {
+  assert.equal(parseEmployeeId("1"), 1);
+  assert.equal(parseEmployeeId("42"), 42);
+});
+
+test("parseEmployeeId は不正な値を undefined にする", () => {
+  assert.equal(parseEmployeeId(""), undefined);
+  assert.equal(parseEmployeeId("abc"), undefined);
+  assert.equal(parseEmployeeId("0"), undefined);
+  assert.equal(parseEmployeeId("-1"), undefined);
+  assert.equal(parseEmployeeId("1.5"), undefined);
+});
 
 test("toApiDate は YYYY-MM-DD を ISO 8601 UTC に変換する", () => {
   assert.equal(toApiDate("2025-07-16"), "2025-07-16T00:00:00.000Z");

@@ -14,7 +14,23 @@ export type Employee = {
 
 export type EmployeesRepository = {
   list(): Promise<Employee[]>;
+  getById(id: number): Promise<Employee | null>;
 };
+
+/** 正の整数だけ通す。不正なら `undefined`。 */
+export function parseEmployeeId(value: string): number | undefined {
+  if (!/^\d+$/.test(value)) {
+    return undefined;
+  }
+
+  const id = Number(value);
+
+  if (!Number.isInteger(id) || id < 1) {
+    return undefined;
+  }
+
+  return id;
+}
 
 export function toApiDate(value: string): string {
   return format(
