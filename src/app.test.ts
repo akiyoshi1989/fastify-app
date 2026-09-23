@@ -43,7 +43,7 @@ function createMemoryEmployeesRepository(
   };
 }
 
-test("GET / は Hello World を返す", async (t) => {
+test("GET /health-check は success を返す", async (t) => {
   const app = buildApp({
     employeesRepository: createMemoryEmployeesRepository([]),
   });
@@ -53,11 +53,11 @@ test("GET / は Hello World を返す", async (t) => {
 
   const response = await app.inject({
     method: "GET",
-    url: "/",
+    url: "/health-check",
   });
 
   assert.equal(response.statusCode, 200);
-  assert.deepEqual(response.json(), { message: "Hello World" });
+  assert.deepEqual(response.json(), { message: "success" });
 });
 
 test("GET /employees は従業員一覧を employees で包んで返す", async (t) => {

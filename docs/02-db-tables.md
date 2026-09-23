@@ -9,8 +9,6 @@ PostgreSQL 上のテーブル、制約、リレーション、初期データを
 - 部門・役職マスターの CRUD API
 - 論理削除
 - ページネーション用インデックス
-- HTTP リクエスト／レスポンスの JSON Schema（各エンドポイント設計）
-- 呼び出し側 UI・クライアント実装
 
 ## 命名（DB）
 
@@ -147,17 +145,9 @@ erDiagram
 | 2 | Josephine Drake | 2025-07-16 | 1（Market） | 1（Staff） | false | 1989-11-04 |
 | 3 | Cody Phillips | 2025-07-16 | 3（Development） | 1（Staff） | true | 2006-08-21 |
 
-## 受け入れ条件
+## テスト仕様
 
-- テーブルは `departments` / `positions` / `employees` の 3 つである
-- 3 テーブルすべてに `created_at` / `updated_at`（`TIMESTAMPTZ`）がある
-- `departments` / `positions` に `valid_from` / `valid_to` があり、期間の `CHECK` がある
-- `employees.department_id` は `departments.id` を参照する
-- `employees.position_id` は `positions.id` を参照する
-- 更新時に `updated_at` が変わる（トリガー）
-- 初回起動後、各テーブルにシード 3 件がある
-- `join_date` / `birth_date` / `valid_from` / `valid_to` は `DATE` である
-- スキーマ変更は `db/init.sql` とこの設計書を同時に直す
+[tests/02-db-tables.md](./tests/02-db-tables.md)
 
 ## 次の段階
 

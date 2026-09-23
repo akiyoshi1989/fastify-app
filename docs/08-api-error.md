@@ -39,10 +39,6 @@
 
 `message` はサーバログとデバッグ用の短文とする。
 
-## 受け入れ条件
+## テスト仕様
 
-- 存在しない従業員の GET / PUT / DELETE が 404 と `{ "message": "Not found" }` を返す
-- 不正なボディの POST / PUT が 400 を返す
-- 成功応答とエラー応答の形がこの設計と各エンドポイント設計に一致する
-- UT は listen せず、Fastify の `inject` で通る
-- `npm run test` が成功する
+[tests/08-api-error.md](./tests/08-api-error.md)

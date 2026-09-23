@@ -82,16 +82,9 @@
 | 該当従業員がいない | 404 |
 | サーバエラー | 500 |
 
-## 受け入れ条件
+## テスト仕様
 
-- 妥当な PUT で 200 と `{ "employees": { ... } }` を返す
-- 更新後の一覧 GET・詳細 GET に反映される
-- `birthDate` を送ったときはその値を保持する
-- `birthDate` を省略したときは既存値を残す
-- 存在しない `id` は更新せず 404 を返す
-- 不正なボディは更新せず 400 を返す
-- UT は listen せず、Fastify の `inject` で通る
-- `npm run test` が成功する
+[tests/07-employees-update.md](./tests/07-employees-update.md)
 
 ## 次の段階
 
