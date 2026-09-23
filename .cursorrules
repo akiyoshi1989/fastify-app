@@ -12,10 +12,16 @@
 6. 認証デコレータ（`fastify.authenticate`）には `@fastify/jwt` を使用すること。
 7. リントおよびフォーマットには `biome` を使用すること。
 
+## ドキュメント配置
+
+- AI が参照するルール・指針は `.cursor/` 配下に置く。
+- 設計書などプロダクト仕様のドキュメントは `docs/` 配下で管理する。
+- `.docs` は使わない（`docs` との二重管理を避ける）。
+
 ## 設計書の方針
 
-- `.docs` は **この API の仕様のみ**を書く。呼び出し側（フロント）の画面・実装・ルーティングには触れない。
-- 記述は **HTTP 契約 / DB / アプリ内** の 3 層を明示する（詳細は `.cursor/rules/docs-api-independence.mdc` と `.docs/00-overview.md`）。
+- `docs` は **この API の仕様のみ**を書く。呼び出し側（フロント）の画面・実装・ルーティングには触れない。
+- 記述は **HTTP 契約 / DB / アプリ内** の 3 層を明示する（詳細は `.cursor/rules/docs-api-independence.mdc` と `docs/00-overview.md`）。
 
 ## ターミナル実行ガイドライン
 
